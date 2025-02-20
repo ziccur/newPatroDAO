@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- Mapeo de la clase Lliga a la tabla LLIGA -->
+    <class name="com.iticbcn.yerayreyes.model.Lliga" table="LLIGA">
+        
+        <!-- Mapeo del campo idLliga como clave primaria -->
+        <id name="idLliga" column="id_lliga" type="long">
+            <generator class="identity"/> <!-- Generación automática de la clave primaria -->
+        </id>
+
+        <!-- Mapeo del campo nomLliga -->
+        <property name="nomLliga" column="nom_lliga" type="string" not-null="true"/>
+
+        <!-- Mapeo del campo temporada -->
+        <property name="temporada" column="temporada" type="string" not-null="true"/>
+    </class>
+</hibernate-mapping>
