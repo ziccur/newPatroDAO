@@ -2,6 +2,9 @@ package com.iticbcn.yerayreyes.interactiveContent;
 
 import java.util.ArrayList;
 
+import org.hibernate.SessionFactory;
+
+import com.iticbcn.yerayreyes.HibernateUtil;
 import com.iticbcn.yerayreyes.dao.ClassificacioDAO;
 import com.iticbcn.yerayreyes.dao.EquipDAO;
 import com.iticbcn.yerayreyes.dao.JugadorDAO;
@@ -13,10 +16,12 @@ import com.iticbcn.yerayreyes.model.Lliga;
 
 public class ListAllData {
     
-    static ClassificacioDAO classificacioDAO = new ClassificacioDAO();
-    static EquipDAO equipDAO = new EquipDAO();
-    static JugadorDAO jugadorDAO = new JugadorDAO();
-    static LligaDAO lligaDAO = new LligaDAO();
+    static SessionFactory session = HibernateUtil.getSessionFactory();
+
+    static ClassificacioDAO classificacioDAO = new ClassificacioDAO(session);
+    static EquipDAO equipDAO = new EquipDAO(session);
+    static JugadorDAO jugadorDAO = new JugadorDAO(session);
+    static LligaDAO lligaDAO = new LligaDAO(session);
 
     @SuppressWarnings("empty-statement")
     public static void listAllData(int opcio){
@@ -30,60 +35,75 @@ public class ListAllData {
     }
 
     public static void listJugador(){
+        try{
+            ArrayList<Jugador> jugadors = new ArrayList<>(jugadorDAO.getAll());
+            if (jugadors.isEmpty()) {
+                System.out.println("No hi ha jugadors per mostrar");
+                System.exit(1);
+            }
 
-        ArrayList<Jugador> jugadors = new ArrayList<>(jugadorDAO.findAll());
-        if (jugadors.isEmpty()) {
-            System.out.println("No hi ha jugadors per mostrar");
-            System.exit(1);
-        }
-
-        System.out.println("Llista de Jugadors:");
-        for (Jugador jugador : jugadors) {
-            System.out.println(jugador.toString());
+            System.out.println("Llista de Jugadors:");
+            for (Jugador jugador : jugadors) {
+                System.out.println(jugador.toString());
+            }
+        }catch(Exception e){
+            System.out.println("Error: "+e);
         }
 
     }
 
     public static void listEquip(){
 
-        ArrayList<Equip> equips = new ArrayList<>(equipDAO.findAll());
-        if (equips.isEmpty()) {
-            System.out.println("No hi ha equips per mostrar");
-            System.exit(1);
-        }
+        try{
+            ArrayList<Equip> equips = new ArrayList<>(equipDAO.getAll());
+            if (equips.isEmpty()) {
+                System.out.println("No hi ha equips per mostrar");
+                System.exit(1);
+            }
 
-        System.out.println("Llista d'Equips:");
-        for (Equip equip : equips) {
-            System.out.println(equip.toString());
+            System.out.println("Llista d'Equips:");
+            for (Equip equip : equips) {
+                System.out.println(equip.toString());
+            }
+        }catch(Exception e){
+            System.out.println("Error: "+e);
         }
     }
 
     public static void listClassificacio(){
+        try{
+            ArrayList<Classificacio> classificacions = new ArrayList<>(classificacioDAO.getAll());
+            if (classificacions.isEmpty()) {
+                System.out.println("No hi ha classificacions per mostrar");
+                System.exit(1);
+            }
 
-        ArrayList<Classificacio> classificacions = new ArrayList<>(classificacioDAO.findAll());
-        if (classificacions.isEmpty()) {
-            System.out.println("No hi ha classificacions per mostrar");
-            System.exit(1);
-        }
-
-        System.out.println("Llista de Classificacions:");
-        for (Classificacio classificacio : classificacions) {
-            System.out.println(classificacio.toString());
+            System.out.println("Llista de Classificacions:");
+            for (Classificacio classificacio : classificacions) {
+                System.out.println(classificacio.toString());
+            }
+        } catch(Exception e){
+            System.out.println("Error: "+e);
         }
 
     }
 
     public static void listLliga(){
 
-        ArrayList<Lliga> lligues = new ArrayList<>(lligaDAO.findAll());
-        if (lligues.isEmpty()) {
-            System.out.println("No hi ha lligues per mostrar");
-            System.exit(1);
-        }
+        try{
 
-        System.out.println("Llista de Lligues:");
-        for (Lliga lliga : lligues) {
-            System.out.println(lliga.toString());
+            ArrayList<Lliga> lligues = new ArrayList<>(lligaDAO.getAll());
+            if (lligues.isEmpty()) {
+                System.out.println("No hi ha lligues per mostrar");
+                System.exit(1);
+            }
+
+            System.out.println("Llista de Lligues:");
+            for (Lliga lliga : lligues) {
+                System.out.println(lliga.toString());
+            }
+        } catch(Exception e){
+            System.out.println("Error: "+e);
         }
 
     }
