@@ -9,7 +9,11 @@ import org.hibernate.Transaction;
 import com.iticbcn.yerayreyes.HibernateUtil;
 import com.iticbcn.yerayreyes.model.Equip;
 
-public class EquipDAO {
+public class EquipDAO extends GenDAOImpl<Equip> {
+
+    public EquipDAO() {
+        super(HibernateUtil.getSessionFactory(), Equip.class);
+    }
 
     public static void create(Equip equip) {
         Transaction transaction = null;
@@ -40,7 +44,7 @@ public class EquipDAO {
         }
     }
 
-    public static void update(Equip equip) {
+    public void update(Equip equip) {
         Transaction transaction = null;
         Session session = null;
         try {

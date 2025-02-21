@@ -9,7 +9,11 @@ import org.hibernate.Transaction;
 import com.iticbcn.yerayreyes.HibernateUtil;
 import com.iticbcn.yerayreyes.model.Lliga;
 
-public class LligaDAO {
+public class LligaDAO extends GenDAOImpl<Lliga> {
+
+    public LligaDAO() {
+        super(HibernateUtil.getSessionFactory(), Lliga.class);
+    }
 
     public void create(Lliga lliga) {
         Transaction transaction = null;

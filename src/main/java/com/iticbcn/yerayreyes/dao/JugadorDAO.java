@@ -9,7 +9,11 @@ import org.hibernate.Transaction;
 import com.iticbcn.yerayreyes.HibernateUtil;
 import com.iticbcn.yerayreyes.model.Jugador;
 
-public class JugadorDAO {
+public class JugadorDAO extends GenDAOImpl<Jugador> {
+
+    public JugadorDAO() {
+        super(HibernateUtil.getSessionFactory(), Jugador.class);
+    }
 
     public void create(Jugador jugador) {
         Transaction transaction = null;
